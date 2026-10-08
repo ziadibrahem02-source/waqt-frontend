@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="html-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#d4af37">
+    <meta name="description" content="WAQT Timepieces — ساعات فاخرة وتجربة تسوق راقية.">
+    <title>وقت | WAQT Timepieces</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 'waqt-gold': '#d4af37' },
+                    fontFamily: {
+                        arabic: ['Tajawal', 'sans-serif'],
+                        english: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="ar-mode">
+    <div id="preloader" aria-label="Loading">
+        <img src="https://i.postimg.cc/2ywt1Nwn/Chat-GPT-Image-Sep-29-2026-at-02-47-54-AM.png" alt="WAQT" class="loader-logo">
+    </div>
+    <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <nav id="mainNav" class="fixed top-0 z-40 flex w-full items-center justify-between bg-white/90 px-6 py-4 backdrop-blur-md md:px-12">
+        <button type="button" class="nav-brand flex cursor-pointer flex-col items-center" data-action="home" aria-label="WAQT Home">
+            <img src="https://i.postimg.cc/2ywt1Nwn/Chat-GPT-Image-Sep-29-2026-at-02-47-54-AM.png" alt="WAQT Timepieces" class="nav-logo">
+        </button>
+        <div class="hidden items-center gap-10 md:flex">
+            <button type="button" data-action="home" class="nav-link"><span class="arabic-text">الرئيسية</span><span class="english-text">Home</span></button>
+            <button type="button" data-action="collection" class="nav-link"><span class="arabic-text">تصفح الساعات</span><span class="english-text">Collection</span></button>
+            <button type="button" data-action="about" class="nav-link"><span class="arabic-text">عن وقت</span><span class="english-text">About</span></button>
+        </div>
+        <div class="flex items-center gap-3 md:gap-4">
+            <button type="button" data-action="login" class="icon-button" aria-label="Account" title="حسابي"><i class="far fa-user"></i></button>
+            <button type="button" data-action="cart" class="icon-button relative" aria-label="Shopping cart">
+                <i class="fas fa-shopping-bag text-xl"></i>
+                <span id="cartCount" class="cart-count">0</span>
+            </button>
+            <button type="button" data-action="theme" class="icon-button" aria-label="Toggle dark mode"><i id="themeIcon" class="fas fa-moon"></i></button>
+            <button type="button" data-action="language" class="language-button">
+                <span class="arabic-text">EN</span><span class="english-text">AR</span>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <section id="home" class="page-section flex min-h-screen flex-col items-center justify-center bg-white px-4 pt-24 text-center">
+            <div class="z-10 mt-8 flex w-full flex-col items-center" data-aos="fade-up">
+                <img src="https://i.postimg.cc/2ywt1Nwn/Chat-GPT-Image-Sep-29-2026-at-02-47-54-AM.png" alt="WAQT Timepieces" class="hero-logo mb-10">
+                <h1 class="mb-4 text-3xl font-light tracking-wide text-gray-800 md:text-5xl">
+                    <span class="arabic-text">وقتك، بصمتك</span><span class="english-text">Your time, your signature.</span>
+                </h1>
+                <p class="mb-12 text-lg font-medium tracking-wider text-waqt-gold md:text-xl">
+                    <span class="arabic-text">كل ثانية تروي قصتك</span><span class="english-text">Every second tells your story.</span>
+                </p>
+                <button type="button" data-action="collection" class="primary-button rounded-full px-10 py-3.5 text-sm font-medium uppercase tracking-widest md:text-base">
+                    <span class="arabic-text">تصفح الساعات</span><span class="english-text">Explore Collection</span>
+                </button>
+            </div>
+        </section>
+
+        <section id="collection" class="page-section min-h-screen bg-white px-6 py-24 md:px-12">
+            <div class="mx-auto max-w-7xl">
+                <div class="mb-16 text-center" data-aos="fade-up">
+                    <h2 class="mb-4 text-3xl font-light tracking-wider text-gray-800 md:text-4xl">
+                        <span class="arabic-text">مجموعتنا الحصرية</span><span class="english-text">Our Exclusive Collection</span>
+                    </h2>
+                    <div class="mx-auto h-px w-16 bg-waqt-gold"></div>
+                </div>
+                <div id="watchesLoader" class="flex items-center justify-center py-20" role="status">
+                    <i class="fas fa-circle-notch fa-spin text-4xl text-waqt-gold"></i>
+                </div>
+                <div id="watchesContainer" class="watches-grid"></div>
+                <p id="watchesMessage" class="hidden py-10 text-center text-gray-500" aria-live="polite"></p>
+            </div>
+        </section>
+
+        <section id="about" class="page-section bg-white py-24">
+            <div class="mx-auto flex max-w-5xl flex-col items-center px-6 text-center" data-aos="fade-up">
+                <img src="https://i.postimg.cc/2ywt1Nwn/Chat-GPT-Image-Sep-29-2026-at-02-47-54-AM.png" alt="WAQT" class="about-logo mb-10">
+                <h2 class="mb-8 text-3xl font-light text-gray-800">
+                    <span class="arabic-text">أكثر من مجرد وقت</span><span class="english-text">More Than Time</span>
+                </h2>
+                <p class="text-lg font-light leading-relaxed text-gray-500 md:text-xl">
+                    <span class="arabic-text">نصنع الوقت، لتصنع أنت اللحظة. ارتد وقتك بثقة.</span>
+                    <span class="english-text">We craft the time, so you craft the moment. Wear your time with confidence.</span>
+                </p>
+            </div>
+        </section>
+
+        <section id="whyChooseUs" class="page-section bg-white px-6 py-24 md:px-12">
+            <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-12 lg:flex-row-reverse lg:gap-16" data-aos="fade-up">
+                <div class="flex w-full justify-center lg:w-1/2">
+                    <div class="relative flex aspect-[4/3] w-full max-w-md items-center justify-center overflow-hidden rounded-2xl border border-gray-100 bg-[#1a1a1a] p-2 shadow-2xl">
+                        <img src="assets/images/box2.png" alt="WAQT Luxury Watch" class="h-full w-full rounded-xl object-cover">
+                    </div>
+                </div>
+                <div class="flex w-full flex-col justify-center lg:w-1/2">
+                    <h2 class="mb-4 text-3xl font-light tracking-wide text-gray-900 md:text-4xl">
+                        <span class="arabic-text">لماذا تختار وقت؟</span><span class="english-text">Why Choose WAQT?</span>
+                    </h2>
+                    <div class="mb-8 h-px w-16 bg-waqt-gold"></div>
+                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                        <article class="benefit"><i class="fas fa-headset"></i><div><h3><span class="arabic-text">دعم عملاء سريع</span><span class="english-text">Fast Customer Support</span></h3><p><span class="arabic-text">موجودون لأجلك دائماً.</span><span class="english-text">Always here to help.</span></p></div></article>
+                        <article class="benefit"><i class="fas fa-shield-alt"></i><div><h3><span class="arabic-text">منتجات فاخرة</span><span class="english-text">Authentic Products</span></h3><p><span class="arabic-text">أناقة مضمونة 100%.</span><span class="english-text">Quality you can trust.</span></p></div></article>
+                        <article class="benefit"><i class="fas fa-gem"></i><div><h3><span class="arabic-text">جودة فاخرة</span><span class="english-text">Luxury Quality</span></h3><p><span class="arabic-text">لأنك تستحق الأفضل.</span><span class="english-text">Because you deserve the best.</span></p></div></article>
+                        <article class="benefit"><i class="fas fa-shipping-fast"></i><div><h3><span class="arabic-text">شحن سريع وآمن</span><span class="english-text">Fast Shipping</span></h3><p><span class="arabic-text">توصيل حتى باب البيت.</span><span class="english-text">Delivered to your door.</span></p></div></article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="productDetailsSection" class="page-section hidden min-h-screen bg-white px-6 py-24">
+            <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 md:grid-cols-2">
+                <div>
+                    <div class="product-main-image mb-4 h-[450px] overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 shadow-2xl">
+                        <img id="pageMainImg" src="" alt="" class="h-full w-full object-contain">
+                    </div>
+                    <div id="pageThumbnails" class="flex gap-4 overflow-x-auto pb-2"></div>
+                </div>
+                <div class="product-info flex w-full flex-col rounded-2xl border p-8 shadow-xl">
+                    <h1 id="pageTitleAr" class="arabic-text mb-4 text-3xl font-bold"></h1>
+                    <h1 id="pageTitleEn" class="english-text mb-4 text-3xl font-bold"></h1>
+                    <div id="pagePrice" class="mb-6 text-2xl font-bold text-waqt-gold"></div>
+                    <div class="my-4 h-px w-full bg-gray-800"></div>
+                    <p class="mb-2 text-sm text-gray-400"><span class="arabic-text">التفاصيل</span><span class="english-text">Details</span></p>
+                    <p id="pageDescAr" class="arabic-text mb-8 text-gray-300"></p>
+                    <p id="pageDescEn" class="english-text mb-8 text-gray-300"></p>
+                    <div class="mt-auto flex items-center justify-between rounded-xl border border-[#262626] bg-[#141414] p-4">
+                        <button type="button" data-action="add-detail" class="rounded-xl bg-waqt-gold px-6 py-3 font-bold text-gray-900">
+                            <span class="arabic-text">إضافة للسلة</span><span class="english-text">Add to cart</span><i class="fas fa-shopping-cart ms-2"></i>
+                        </button>
+                        <div class="text-end"><span class="block text-xs text-gray-400"><span class="arabic-text">السعر</span><span class="english-text">Price</span></span><span id="pagePriceBottom" class="text-lg font-bold text-waqt-gold"></span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <section id="aboutSection" class="page-section hidden min-h-screen bg-gray-50 px-6 py-24">
+        <div class="mx-auto max-w-4xl text-center">
+            <h2 class="mb-6 text-3xl font-bold text-waqt-gold">WAQT Timepieces</h2>
+            <p class="text-lg leading-relaxed text-gray-600">
+                <span class="arabic-text">نحن منصة متخصصة في تقديم أفخر الساعات وأرقى التصميمات التي تجمع بين أصالة الماضي وعصرية الحاضر. نؤمن بأن الوقت هو أثمن ما يمتلكه الإنسان، ولذلك نستهدف توفير تجربة تسوق فريدة ومميزة تليق بذوقك الرفيع.</span>
+                <span class="english-text">We bring you refined timepieces that blend timeless heritage with modern design, with a shopping experience worthy of your style.</span>
+            </p>
+        </div>
+    </section>
+
+    <footer id="mainFooter" class="bg-white pb-10 pt-20">
+        <div class="mx-auto max-w-4xl px-6">
+            <div class="mb-20 flex justify-center gap-12">
+                <a href="https://wa.me/201505797953" target="_blank" rel="noopener noreferrer" class="contact-icon-link" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://instagram.com/waqt.watch_" target="_blank" rel="noopener noreferrer" class="contact-icon-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://tiktok.com/@waqt.watch_" target="_blank" rel="noopener noreferrer" class="contact-icon-link" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="mailto:waaqtstore@gmail.com" class="contact-icon-link" aria-label="Email"><i class="far fa-envelope"></i></a>
+            </div>
+            <div class="flex flex-col items-center border-t border-gray-100 pt-8">
+                <div class="mb-4 text-[10px] font-bold tracking-[0.3em] text-waqt-gold">MORE THAN TIME</div>
+                <div class="flex items-center gap-2 text-xs text-gray-400">© 2026 WAQT Timepieces</div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="cartModal" class="modal-overlay" aria-hidden="true">
+        <section class="modal-content cart-modal" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+            <header class="mb-6 flex items-center justify-between border-b border-gray-200 pb-4 dark:border-gray-800">
+                <h2 id="cartTitle" class="text-xl font-bold text-waqt-gold"><span class="arabic-text">سلة المشتريات</span><span class="english-text">Shopping Cart</span></h2>
+                <button type="button" data-action="close-cart" class="icon-button" aria-label="Close cart"><i class="fas fa-times text-xl"></i></button>
+            </header>
+            <div id="cartItemsContainer" class="cart-items flex-grow space-y-4 overflow-y-auto"></div>
+            <footer class="mt-auto border-t border-gray-200 pt-4 dark:border-gray-800">
+                <div class="mb-4 flex items-center justify-between text-lg font-bold">
+                    <span><span class="arabic-text">الإجمالي</span><span class="english-text">Total</span>:</span>
+                    <span id="cartTotal" class="text-waqt-gold">0 EGP</span>
+                </div>
+                <div class="flex gap-2">
+                    <button type="button" data-action="close-cart" class="secondary-button w-1/2 rounded-xl py-3 text-sm font-bold">
+                        <span class="arabic-text">تكملة التسوق</span><span class="english-text">Continue shopping</span>
+                    </button>
+                    <button type="button" data-action="checkout" class="w-1/2 rounded-xl bg-waqt-gold py-3 text-sm font-bold text-gray-950">
+                        <span class="arabic-text">إتمام الطلب</span><span class="english-text">Checkout</span>
+                    </button>
+                </div>
+            </footer>
+        </section>
+    </div>
+
+    <div id="checkoutModal" class="modal-overlay checkout-overlay" aria-hidden="true">
+        <section class="modal-content checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+            <button type="button" data-action="close-checkout" class="modal-close icon-button" aria-label="Close checkout"><i class="fas fa-times text-xl"></i></button>
+            <header class="mb-8 text-center">
+                <h2 id="checkoutTitle" class="mb-2 text-2xl font-bold text-gray-900 dark:text-white"><span class="arabic-text">إتمام الطلب</span><span class="english-text">Checkout</span></h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400"><span class="arabic-text">أدخل بياناتك بدقة لتأكيد طلبك</span><span class="english-text">Enter your details to confirm your order</span></p>
+            </header>
+            <form id="checkoutForm" class="space-y-5" novalidate>
+                <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+                    <label class="form-field"><span><span class="arabic-text">الاسم بالكامل *</span><span class="english-text">Full name *</span></span><input type="text" id="cName" name="name" required minlength="2" maxlength="100" autocomplete="name"></label>
+                    <label class="form-field"><span><span class="arabic-text">البريد الإلكتروني *</span><span class="english-text">Email *</span></span><input type="email" id="cEmail" name="email" required maxlength="254" autocomplete="email" dir="ltr" placeholder="example@mail.com"></label>
+                    <label class="form-field"><span><span class="arabic-text">رقم الهاتف 1 *</span><span class="english-text">Phone number 1 *</span></span><input type="tel" id="cPhone1" name="phone1" required inputmode="numeric" pattern="01[0125][0-9]{8}" minlength="11" maxlength="11" autocomplete="tel" dir="ltr" placeholder="01XXXXXXXXX"></label>
+                    <label class="form-field"><span><span class="arabic-text">رقم الهاتف 2 (اختياري)</span><span class="english-text">Phone number 2 (optional)</span></span><input type="tel" id="cPhone2" name="phone2" inputmode="numeric" pattern="01[0125][0-9]{8}" minlength="11" maxlength="11" dir="ltr" placeholder="01XXXXXXXXX"></label>
+                    <label class="form-field"><span><span class="arabic-text">المحافظة *</span><span class="english-text">Governorate *</span></span>
+                        <select id="cGov" name="governorate" required>
+                            <option value="">—</option>
+                            <option value="القاهرة / Cairo">القاهرة / Cairo</option><option value="الإسكندرية / Alexandria">الإسكندرية / Alexandria</option><option value="الجيزة / Giza">الجيزة / Giza</option><option value="القليوبية / Qalyubia">القليوبية / Qalyubia</option><option value="بورسعيد / Port Said">بورسعيد / Port Said</option><option value="السويس / Suez">السويس / Suez</option><option value="الإسماعيلية / Ismailia">الإسماعيلية / Ismailia</option><option value="الشرقية / Al Sharqia">الشرقية / Al Sharqia</option><option value="الدقهلية / Dakahlia">الدقهلية / Dakahlia</option><option value="الغربية / Gharbia">الغربية / Gharbia</option><option value="المنوفية / Monufia">المنوفية / Monufia</option><option value="البحيرة / Beheira">البحيرة / Beheira</option><option value="كفر الشيخ / Kafr El Sheikh">كفر الشيخ / Kafr El Sheikh</option><option value="دمياط / Damietta">دمياط / Damietta</option><option value="الفيوم / Faiyum">الفيوم / Faiyum</option><option value="بني سويف / Beni Suef">بني سويف / Beni Suef</option><option value="المنيا / Minya">المنيا / Minya</option><option value="أسيوط / Asyut">أسيوط / Asyut</option><option value="سوهاج / Sohag">سوهاج / Sohag</option><option value="قنا / Qena">قنا / Qena</option><option value="الأقصر / Luxor">الأقصر / Luxor</option><option value="أسوان / Aswan">أسوان / Aswan</option><option value="البحر الأحمر / Red Sea">البحر الأحمر / Red Sea</option><option value="الوادي الجديد / New Valley">الوادي الجديد / New Valley</option><option value="مطروح / Matrouh">مطروح / Matrouh</option><option value="شمال سيناء / North Sinai">شمال سيناء / North Sinai</option><option value="جنوب سيناء / South Sinai">جنوب سيناء / South Sinai</option>
+                        </select>
+                    </label>
+                    <label class="form-field"><span><span class="arabic-text">طريقة الدفع *</span><span class="english-text">Payment method *</span></span>
+                        <select id="cPayment" name="payment" required><option value="instapay">InstaPay / انستا باي</option><option value="wallet">E-Wallet / محفظة إلكترونية</option><option value="cod">Cash on Delivery / الدفع عند الاستلام</option></select>
+                    </label>
+                </div>
+                <div id="codNote" class="hidden rounded-lg border border-yellow-200 bg-yellow-50 p-3 text-sm text-yellow-800 dark:border-yellow-700/50 dark:bg-yellow-900/20 dark:text-yellow-400">
+                    <span class="arabic-text">في حالة الدفع عند الاستلام، يتم تحويل مبلغ بسيط مقدماً لجدية الحجز.</span><span class="english-text">A small advance deposit is required for cash-on-delivery orders.</span>
+                </div>
+                <label class="form-field"><span><span class="arabic-text">العنوان بالتفصيل *</span><span class="english-text">Detailed address *</span></span><textarea id="cAddress" name="address" required minlength="8" maxlength="500" rows="2" autocomplete="street-address"></textarea></label>
+                <label class="form-field"><span><span class="arabic-text">ملاحظات إضافية (اختياري)</span><span class="english-text">Additional notes (optional)</span></span><textarea id="cNotes" name="notes" maxlength="500" rows="2"></textarea></label>
+                <p id="checkoutError" class="hidden text-sm text-red-500" role="alert"></p>
+                <button id="checkoutSubmit" type="submit" class="primary-button w-full rounded-xl py-4 font-bold uppercase tracking-widest shadow-lg">
+                    <span class="arabic-text">تأكيد الطلب</span><span class="english-text">Confirm order</span>
+                </button>
+            </form>
+        </section>
+    </div>
+
+    <section id="loginSection" class="page-section hidden min-h-screen flex-col items-center justify-center bg-gray-50 px-6 py-12">
+        <div class="login-card mx-auto w-full max-w-md rounded-2xl border border-gray-100 bg-white p-8 shadow-lg">
+            <button type="button" data-action="home" class="mb-6 flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-waqt-gold">
+                <i class="fas fa-arrow-right arabic-text"></i><i class="fas fa-arrow-left english-text"></i><span class="arabic-text">العودة للرئيسية</span><span class="english-text">Back to home</span>
+            </button>
+            <div class="mb-8 flex border-b border-gray-200">
+                <button type="button" id="tab-login" data-auth-tab="login" class="auth-tab active"><span class="arabic-text">تسجيل الدخول</span><span class="english-text">Login</span></button>
+                <button type="button" id="tab-register" data-auth-tab="register" class="auth-tab"><span class="arabic-text">حساب جديد</span><span class="english-text">Sign up</span></button>
+            </div>
+            <form id="loginForm" class="space-y-5">
+                <label class="form-field"><span><span class="arabic-text">الإيميل أو اسم المستخدم</span><span class="english-text">Email or username</span></span><input type="text" id="loginEmail" name="login" required maxlength="254" autocomplete="username" dir="ltr"></label>
+                <label class="form-field"><span><span class="arabic-text">كلمة المرور</span><span class="english-text">Password</span></span><input type="password" id="loginPassword" name="password" required minlength="8" maxlength="128" autocomplete="current-password" dir="ltr"></label>
+                <p id="loginError" class="hidden text-sm text-red-500" role="alert"></p>
+                <button type="submit" class="primary-button w-full rounded-xl py-3 text-lg font-bold"><span class="arabic-text">دخول</span><span class="english-text">Log in</span></button>
+            </form>
+            <form id="registerForm" class="hidden space-y-5">
+                <label class="form-field"><span><span class="arabic-text">الاسم بالكامل</span><span class="english-text">Full name</span></span><input type="text" id="regName" required minlength="2" maxlength="100" autocomplete="name"></label>
+                <label class="form-field"><span><span class="arabic-text">البريد الإلكتروني</span><span class="english-text">Email</span></span><input type="email" id="regEmail" required maxlength="254" autocomplete="email" dir="ltr"></label>
+                <label class="form-field"><span><span class="arabic-text">كلمة المرور (8 أحرف على الأقل)</span><span class="english-text">Password (at least 8 characters)</span></span><input type="password" id="regPassword" required minlength="8" maxlength="128" autocomplete="new-password" dir="ltr"></label>
+                <p id="registerError" class="hidden text-sm text-red-500" role="alert"></p>
+                <button type="submit" class="w-full rounded-xl bg-waqt-gold py-3 text-lg font-bold text-gray-900"><span class="arabic-text">إنشاء حساب</span><span class="english-text">Create account</span></button>
+            </form>
+        </div>
+    </section>
+
+    <section id="adminDashboardSection" class="page-section hidden min-h-screen bg-gray-50 px-6 pb-12 pt-24">
+        <div class="mx-auto max-w-6xl">
+            <header class="mb-8 flex flex-col items-center justify-between rounded-2xl border border-gray-100 bg-white p-6 shadow-lg md:flex-row">
+                <h2 class="flex items-center gap-2 text-2xl font-bold text-waqt-gold"><i class="fas fa-chart-line"></i><span class="arabic-text">لوحة تحكم الإدارة</span><span class="english-text">Admin dashboard</span></h2>
+                <div class="mt-4 flex flex-wrap gap-3 md:mt-0">
+                    <button type="button" data-admin-tab="orders" class="admin-tab"><span class="arabic-text">الطلبات</span><span class="english-text">Orders</span></button>
+                    <button type="button" data-admin-tab="products" class="admin-tab"><span class="arabic-text">المنتجات</span><span class="english-text">Products</span></button>
+                    <button type="button" data-action="admin-logout" class="logout-button"><span class="arabic-text">تسجيل الخروج</span><span class="english-text">Log out</span><i class="fas fa-sign-out-alt ms-1"></i></button>
+                </div>
+            </header>
+            <section id="adminOrdersTab" class="admin-panel rounded-2xl border border-gray-100 bg-white p-6 shadow-lg">
+                <div class="mb-6 flex items-center justify-between">
+                    <h3 class="text-xl font-bold"><span class="arabic-text">الطلبات الأخيرة</span><span class="english-text">Recent orders</span></h3>
+                    <button type="button" data-action="refresh-orders" class="text-waqt-gold"><i class="fas fa-sync-alt"></i> <span class="arabic-text">تحديث</span><span class="english-text">Refresh</span></button>
+                </div>
+                <div class="overflow-x-auto"><table class="admin-table"><thead><tr><th><span class="arabic-text">العميل</span><span class="english-text">Customer</span></th><th><span class="arabic-text">المنتج</span><span class="english-text">Product</span></th><th><span class="arabic-text">السعر</span><span class="english-text">Price</span></th><th><span class="arabic-text">التاريخ</span><span class="english-text">Date</span></th></tr></thead><tbody id="adminOrdersTableBody"></tbody></table></div>
+            </section>
+            <section id="adminProductsTab" class="admin-panel hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-lg">
+                <h3 class="mb-6 text-xl font-bold"><span class="arabic-text">إضافة منتج جديد</span><span class="english-text">Add a product</span></h3>
+                <form id="addWatchForm" class="mb-8 grid grid-cols-1 gap-4 border-b border-gray-200 pb-8 md:grid-cols-2">
+                    <input type="text" id="wNameAr" placeholder="اسم الساعة (عربي)" required minlength="2" maxlength="120">
+                    <input type="text" id="wNameEn" placeholder="Watch name (English)" required minlength="2" maxlength="120" dir="ltr">
+                    <input type="number" id="wPrice" placeholder="السعر / Price (EGP)" required min="1" max="100000000" step="0.01" class="md:col-span-2">
+                    <label class="md:col-span-2"><span class="mb-2 block text-sm font-bold"><span class="arabic-text">صور المنتج (حتى 8 صور)</span><span class="english-text">Product images (up to 8)</span> <span id="imgCount" class="text-waqt-gold">(0/8)</span></span>
+                        <input type="file" id="fileInput" multiple accept="image/jpeg,image/png,image/webp" class="file-input">
+                    </label>
+                    <div id="imagePreviewContainer" class="flex flex-wrap gap-4 md:col-span-2"></div>
+                    <button type="submit" class="rounded-xl bg-waqt-gold py-3 font-bold text-gray-900 md:col-span-2"><span class="arabic-text">إضافة للساعات</span><span class="english-text">Add product</span></button>
+                </form>
+                <h3 class="mb-4 text-xl font-bold"><span class="arabic-text">المنتجات الحالية</span><span class="english-text">Current products</span></h3>
+                <div class="overflow-x-auto"><table class="admin-table"><thead><tr><th><span class="arabic-text">الصورة</span><span class="english-text">Image</span></th><th><span class="arabic-text">الاسم</span><span class="english-text">Name</span></th><th><span class="arabic-text">السعر</span><span class="english-text">Price</span></th><th><span class="arabic-text">إجراء</span><span class="english-text">Action</span></th></tr></thead><tbody id="adminWatchesTableBody"></tbody></table></div>
+            </section>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <script src="js/main.js" defer></script>
+</body>
+</html>
