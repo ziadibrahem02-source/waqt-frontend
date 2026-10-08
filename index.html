@@ -34,34 +34,29 @@
     <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
 
     <nav id="mainNav" class="fixed top-0 z-40 flex w-full items-center justify-between bg-white/90 px-6 py-4 backdrop-blur-md md:px-12">
-    <button type="button" class="nav-brand flex cursor-pointer flex-col items-center" data-action="home" aria-label="WAQT Home">
-        <img src="https://i.postimg.cc/2ywt1Nwn/Chat-GPT-Image-Sep-29-2026-at-02-47-54-AM.png" alt="WAQT Timepieces" class="nav-logo">
-    </button>
-    
-    <div class="hidden md:flex items-center gap-10">            
-        <a href="#" onclick="navigateTo('home'); return false;" class="text-gray-800 hover:text-waqt-gold transition-colors text-base font-medium tracking-wide">
-            <span class="arabic-text">الرئيسية</span><span class="english-text">Home</span>
-        </a>
-        <a href="#" onclick="navigateTo('collection'); return false;" class="text-gray-800 hover:text-waqt-gold transition-colors text-base font-medium tracking-wide">
-            <span class="arabic-text">تصفح الساعات</span><span class="english-text">Collection</span>
-        </a>
-        <a href="#" onclick="navigateTo('about'); return false;" class="text-gray-800 hover:text-waqt-gold transition-colors text-base font-medium tracking-wide">
-            <span class="arabic-text">عن وقت</span><span class="english-text">About</span>
-        </a>
-    </div>
+        <button type="button" class="nav-brand flex cursor-pointer flex-col items-center" data-action="home" aria-label="WAQT Home">
+            <img src="https://i.postimg.cc/2ywt1Nwn/Chat-GPT-Image-Sep-29-2026-at-02-47-54-AM.png" alt="WAQT Timepieces" class="nav-logo">
+        </button>
+        
+        <div class="hidden items-center gap-10 md:flex">
+            <button type="button" data-action="home" class="nav-link"><span class="arabic-text">الرئيسية</span><span class="english-text">Home</span></button>
+            <button type="button" data-action="collection" class="nav-link"><span class="arabic-text">تصفح الساعات</span><span class="english-text">Collection</span></button>
+            <button type="button" data-action="about" class="nav-link"><span class="arabic-text">عن وقت</span><span class="english-text">About</span></button>
+        </div>
+        <div class="flex items-center gap-3 md:gap-4">
+            <button type="button" data-action="login" class="icon-button" aria-label="Account" title="حسابي"><i class="far fa-user"></i></button>
+            <button type="button" data-action="cart" class="icon-button relative" aria-label="Shopping cart">
+                <i class="fas fa-shopping-bag text-xl"></i>
+                <span id="cartCount" class="cart-count">0</span>
+            </button>
+            <button type="button" data-action="theme" class="icon-button" aria-label="Toggle dark mode"><i id="themeIcon" class="fas fa-moon"></i></button>
+            <button type="button" data-action="language" class="language-button">
+                <span class="arabic-text">EN</span><span class="english-text">AR</span>
+            </button>
+        </div>
+        
+    </nav>
 
-    <div class="flex items-center gap-3 md:gap-4">
-        <button type="button" data-action="login" class="icon-button" aria-label="Account" title="حسابي"><i class="far fa-user"></i></button>
-        <button type="button" data-action="cart" class="icon-button relative" aria-label="Shopping cart">
-            <i class="fas fa-shopping-bag text-xl"></i>
-            <span id="cartCount" class="cart-count">0</span>
-        </button>
-        <button type="button" data-action="theme" class="icon-button" aria-label="Toggle dark mode"><i id="themeIcon" class="fas fa-moon"></i></button>
-        <button type="button" data-action="language" class="language-button">
-            <span class="arabic-text">EN</span><span class="english-text">AR</span>
-        </button>
-    </div>
-</nav>
     <main>
         <section id="home" class="page-section flex min-h-screen flex-col items-center justify-center bg-white px-4 pt-24 text-center">
             <div class="z-10 mt-8 flex w-full flex-col items-center" data-aos="fade-up">
